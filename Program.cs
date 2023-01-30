@@ -2,7 +2,9 @@ using LanchesMac.Context;
 using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +42,16 @@ app.UseRouting();
 app.UseSession();
 
 app.UseAuthorization();
+
+//app.MapControllerRoute(
+//name: "teste",
+//pattern: "testename",
+//defaults: new { controller = "teste", Action = "index" });
+
+app.MapControllerRoute(
+name: "categoriaFiltro",
+pattern: "Lanche/{action}/{categoria?}",
+defaults: new { controller = "Lanche", action = "List"});
 
 app.MapControllerRoute(
     name: "default",
