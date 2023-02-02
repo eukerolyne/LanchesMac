@@ -1,5 +1,4 @@
 ﻿using LanchesMac.Context;
-using LanchesMac.Migrations;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -20,7 +19,8 @@ namespace LanchesMac.Models
         public static CarrinhoCompra GetCarrinho(IServiceProvider services)
         {
             //define uma sessão
-            ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
+            ISession session = 
+                services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
 
             //obtem um serviço do tipo do nosso contexto
             var context = services.GetService<AppDbContext>();
@@ -89,7 +89,7 @@ namespace LanchesMac.Models
         {
             return CarrinhoCompraItens ??
                    (CarrinhoCompraItens =
-                       _context.CarrinhoCompraItens.Where(c => c.CarrinhoCompraId == CarrinhoCompraId)
+                      _context.CarrinhoCompraItens.Where(c => c.CarrinhoCompraId == CarrinhoCompraId)
                            .Include(s => s.Lanche)
                            .ToList());
         }

@@ -2,6 +2,7 @@ using LanchesMac.Context;
 using LanchesMac.Models;
 using LanchesMac.Repositories;
 using LanchesMac.Repositories.Interfaces;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,6 +14,12 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("ChaveBD")));
+
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
+
 
 builder.Services.AddTransient<ILancheRepository, LancheRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
@@ -44,6 +51,8 @@ app.UseSession();
 
 app.UseAuthorization();
 
+app.UseAuthentication();
+
 //app.MapControllerRoute(
 //name: "teste",
 //pattern: "testename",
@@ -52,7 +61,7 @@ app.UseAuthorization();
 app.MapControllerRoute(
 name: "categoriaFiltro",
 pattern: "Lanche/{action}/{categoria?}",
-defaults: new { controller = "Lanche", action = "List"});
+defaults: new { controller = "Lanche", action = "List" });
 
 app.MapControllerRoute(
     name: "default",

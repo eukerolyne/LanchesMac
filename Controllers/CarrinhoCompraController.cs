@@ -32,7 +32,8 @@ namespace LanchesMac.Controllers
 
         public IActionResult AdicionarItemNoCarrinhoCompra(int produtoId)
         {
-            var lancheSelecionado = _lancheRepository.Lanches.FirstOrDefault(p => p.ProdutoId == produtoId);
+            var lancheSelecionado = _lancheRepository.Lanches
+                                    .FirstOrDefault(p => p.ProdutoId == produtoId);
             if (lancheSelecionado != null)
             {
                 _carrinhoCompra.AdicionarAoCarrinho(lancheSelecionado);

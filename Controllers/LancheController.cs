@@ -29,12 +29,14 @@ namespace LanchesMac.Controllers
                 lanches = _lancheRepository.Lanches
                             .Where(l => l.Categoria.CategoriaNome.Equals(categoria))
                             .OrderBy(c => c.Nome);
+
+                categoriaAtual = categoria;
             }
 
             var lanchesListViewModel = new LancheListViewModel
             {
                 Lanches = lanches,
-                CategoriaAtual = categoria,
+                CategoriaAtual = categoriaAtual,
             };
 
             return View(lanchesListViewModel);
@@ -71,6 +73,7 @@ namespace LanchesMac.Controllers
                     categoriaAtual = "Nenhum lanche foi encontrado";
                 }
             }
+
             return View("~/Views/Lanche/List.cshtml", new LancheListViewModel
             {
                 Lanches = lanches,
