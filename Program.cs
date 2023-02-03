@@ -20,6 +20,15 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 6;
+    options.Password.RequiredUniqueChars = 1;
+});
+
 
 builder.Services.AddTransient<ILancheRepository, LancheRepository>();
 builder.Services.AddTransient<ICategoriaRepository, CategoriaRepository>();
@@ -52,11 +61,6 @@ app.UseSession();
 app.UseAuthorization();
 
 app.UseAuthentication();
-
-//app.MapControllerRoute(
-//name: "teste",
-//pattern: "testename",
-//defaults: new { controller = "teste", Action = "index" });
 
 app.MapControllerRoute(
 name: "categoriaFiltro",
