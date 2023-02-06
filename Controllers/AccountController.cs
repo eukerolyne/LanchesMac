@@ -17,16 +17,16 @@ namespace LanchesMac.Controllers
             _signInManager = signInManager;
         }
 
-        public IActionResult Login(string? returnUrl)
+        public IActionResult Login(string? ReturnUrl)
         {
             return View(new LoginViewModel()
             {
-                ReturnUrl = returnUrl
-            });
+                ReturnUrl = ReturnUrl
+            }) ;
         }
         [AllowAnonymous]
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel loginVM)
+        public async Task<IActionResult> Login(LoginViewModel loginVM, string? ReturnUrl)
         {
             if (!ModelState.IsValid)
                 return View(loginVM);
@@ -38,7 +38,7 @@ namespace LanchesMac.Controllers
                 var result = await _signInManager.PasswordSignInAsync(user, loginVM.Password, false, false);
                 if (result.Succeeded)
                 {
-                    if (string.IsNullOrEmpty(loginVM.ReturnUrl))
+                    if (string.IsNullOrEmpty(ReturnUrl))
                     {
                         return RedirectToAction("Index", "Home");
                     }

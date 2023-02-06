@@ -1,6 +1,7 @@
 ﻿using LanchesMac.Models;
 using LanchesMac.Repositories.Interfaces;
 using LanchesMac.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LanchesMac.Controllers
@@ -13,7 +14,7 @@ namespace LanchesMac.Controllers
         {
             _lancheRepository = lancheRepository;
         }
-
+        [Authorize]
         public IActionResult List(string categoria)
         {
             IEnumerable<Lanche> lanches;
